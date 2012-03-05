@@ -1,0 +1,3 @@
+* Support CentOS 6 and Ubuntu
+* Add an easy way to specify desired Puppet version (maybe use yum.puppetlabs.com instead of EPEL)
+* Make hosts file dynamic based on what is defined in Vagrantfile
