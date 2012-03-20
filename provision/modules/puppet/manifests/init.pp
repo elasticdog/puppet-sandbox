@@ -22,8 +22,9 @@ class puppet {
   }
 
   service { 'puppet':
-    enable => true,
-    ensure => running,
+    enable  => true,
+    ensure  => running,
+    require => Package['puppet'],
   }
 
 }
