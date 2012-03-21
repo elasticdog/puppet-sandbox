@@ -2,19 +2,25 @@ Description
 ===========
 
 Puppet Sandbox is a multi-VM [Vagrant](http://vagrantup.com/)-based Puppet
-development environment used for creating and testing new modules outside of
-your production environment. It is prefered over the upstream [Learning Puppet
-VM](http://info.puppetlabs.com/download-learning-puppet-VM.html) as it gives
-you more flexibility by setting up three separate virtual machines:
+development environment used for creating and testing new modules outside
+of your production environment. It is prefered over the upstream [Learning
+Puppet VM](http://info.puppetlabs.com/download-learning-puppet-VM.html) as
+it gives you more flexibility and allows you to use your own local editing
+environment and tools.
+
+Puppet Sandbox will set up three separate virtual machines:
 
 * _puppet.example.com_ - the Puppet master server
 * _client1.example.com_ - the first Puppet client machine
 * _client2.example.com_ - the second Puppet client machine
 
-These VMs can be used in conjunction to segregate and test your modules based
-on node roles, Puppet environments, etc.. You can even test modules on
-different Linux distributions or release versions to better match your
+These VMs can be used in conjunction to segregate and test your modules
+based on node roles, Puppet environments, etc. You can even test modules
+on different Linux distributions or release versions to better match your
 production infrastructure.
+
+**Check out the [Puppet Sandbox Demonstration](http://vimeo.com/elasticdog/puppet-sandbox-demo)
+screencast for a brief overview of the project.**
 
 Requirements
 ============
