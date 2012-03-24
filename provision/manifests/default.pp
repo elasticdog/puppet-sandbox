@@ -3,12 +3,12 @@
 #
 
 # use run stages for minor vagrant environment fixes
-stage { 'pre': before => Stage['main'] }
+stage { 'pre': before    => Stage['main'] }
 class { 'mirrors': stage => 'pre' }
+class { 'vagrant': stage => 'pre' }
 
 class { 'puppet': }
 class { 'networking': }
-class { 'vagrant': }
 
 if $hostname == 'puppet' {
   class { 'puppet::server': }
