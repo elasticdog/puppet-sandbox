@@ -4,12 +4,21 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   What state the package should be in. Defaults to +latest+. Valid values are
+#   +present+ (also called +installed+), +absent+, +purged+, +held+, +latest+,
+#   or a specific version number.
+#
+# [*package_name*]
+#   The name of the package on the relevant distribution. Default is set by
+#   Class['puppet::params'].
+#
 # === Actions
 #
 # - Install Puppet server package
-# - Ensure puppet-master daemon is running
-# - Configure Puppet to use nodes.pp and modules from /vagrant directory
 # - Configure Puppet to autosign puppet client certificate requests
+# - Configure Puppet to use nodes.pp and modules from /vagrant directory
+# - Ensure puppet-master daemon is running
 #
 # === Requires
 #
@@ -17,10 +26,25 @@
 #
 #   class { 'puppet::server': }
 #
-class puppet::server {
+#   class { 'puppet::server':
+#     ensure => '2.6.8-0.5.el5',
+#   }
+#
+class puppet::server(
+  $ensure       = $puppet::params::server_ensure,
+  $package_name = $puppet::params::server_package_name
+) inherits puppet::params {
 
-  package { 'puppet-server':
-    ensure => latest,
+  # required to prevent syslog error on ubuntu
+  # https://bugs.launchpad.net/ubuntu/+source/puppet/+bug/564861
+  file { [ '/etc/puppet', '/etc/puppet/files' ]:
+    ensure => directory,
+    before => Package[ 'puppetmaster' ],
+  }
+
+  package { 'puppetmaster':
+    ensure => $ensure,
+    name   => $package_name,
   }
 
   file { 'puppet.conf':
@@ -29,8 +53,8 @@ class puppet::server {
     group   => 'puppet',
     mode    => '0644',
     source  => 'puppet:///modules/puppet/puppet.conf',
-    require => Package[ 'puppet-server' ],
-    notify  => Service[ 'puppet-server' ],
+    require => Package[ 'puppetmaster' ],
+    notify  => Service[ 'puppetmaster' ],
   }
 
   file { 'site.pp':
@@ -39,20 +63,7 @@ class puppet::server {
     group   => 'puppet',
     mode    => '0644',
     source  => 'puppet:///modules/puppet/site.pp',
-    require => Package[ 'puppet-server' ],
-  }
-
-  file { '/etc/puppet/manifests/nodes.pp':
-    ensure  => link,
-    target  => '/vagrant/nodes.pp',
-  }
-
-  # initialize a template file then ignore
-  file { '/vagrant/nodes.pp':
-    ensure  => present,
-    replace => false,
-    source  => 'puppet:///modules/puppet/nodes.pp',
-    require => Package[ 'puppet-server' ],
+    require => Package[ 'puppetmaster' ],
   }
 
   file { 'autosign.conf':
@@ -61,13 +72,25 @@ class puppet::server {
     group   => 'puppet',
     mode    => '0644',
     content => '*',
-    require => Package[ 'puppet-server' ],
+    require => Package[ 'puppetmaster' ],
   }
 
-  service { 'puppet-server':
+  file { '/etc/puppet/manifests/nodes.pp':
+    ensure  => link,
+    target  => '/vagrant/nodes.pp',
+    require => Package[ 'puppetmaster' ],
+  }
+
+  # initialize a template file then ignore
+  file { '/vagrant/nodes.pp':
+    ensure  => present,
+    replace => false,
+    source  => 'puppet:///modules/puppet/nodes.pp',
+  }
+
+  service { 'puppetmaster':
     enable => true,
     ensure => running,
-    name   => 'puppetmaster',
   }
 
 }

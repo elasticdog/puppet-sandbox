@@ -4,6 +4,11 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   What state the package should be in. Defaults to +latest+. Valid values are
+#   +present+ (also called +installed+), +absent+, +purged+, +held+, +latest+,
+#   or a specific version number.
+#
 # === Actions
 #
 # - Install Puppet client package
@@ -15,16 +20,30 @@
 #
 #   class { 'puppet': }
 #
-class puppet {
+#   class { 'puppet':
+#     ensure => '2.6.8-0.5.el5',
+#   }
+#
+class puppet(
+  $ensure = $puppet::params::client_ensure
+) inherits puppet::params {
 
   package { 'puppet':
-    ensure => latest,
+    ensure => $ensure,
+  }
+
+  # required to start client agent on ubuntu
+  exec { 'start_puppet':
+    command => '/bin/sed -i /etc/default/puppet -e "s/START=no/START=yes/"',
+    onlyif  => '/usr/bin/test -f /etc/default/puppet',
+    require => Package[ 'puppet' ],
+    before  => Service[ 'puppet' ],
   }
 
   service { 'puppet':
     enable  => true,
     ensure  => running,
-    require => Package['puppet'],
+    require => Package[ 'puppet' ],
   }
 
 }
