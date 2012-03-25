@@ -1,13 +1,12 @@
 # == Class: mirrors
 #
-# This class installs the Extra Packages for Enterprise Linux (EPEL) repository
-# and would be the place to configure any other custom mirrors you may want.
+# This class loads the relevant distribution-specific package repository
+# manifests and would be the place to configure any other custom mirrors you
+# may want.
 #
 # === Parameters
 #
 # === Actions
-#
-# - Install EPEL repository using upstream RPM
 #
 # === Requires
 #
@@ -17,10 +16,16 @@
 #
 class mirrors {
 
-  package { 'epel-release':
-    ensure   => installed,
-    provider => rpm,
-    source   => 'puppet:///modules/mirrors/epel-release-5-4.noarch.rpm',
+  case $::operatingsystem {
+    'centos', 'fedora', 'redhat', 'scientific': {
+      class { 'mirrors::yum': }
+    }
+    'debian', 'ubuntu': {
+      class { 'mirrors::apt': }
+    }
+    default: {
+      fail("Module '${module_name}' is not currently supported by Puppet Sandbox on ${::operatingsystem}")
+    }
   }
 
 }

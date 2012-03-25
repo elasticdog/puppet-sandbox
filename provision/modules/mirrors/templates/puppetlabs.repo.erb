@@ -1,0 +1,13 @@
+[puppetlabs-products]
+name=Puppet Labs Products <%= os_release_major_version %> - $basearch
+baseurl=http://yum.puppetlabs.com/el/<%= os_release_major_version %>/products/$basearch
+gpgkey=http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
+enabled=1
+gpgcheck=1
+
+[puppetlabs-deps]
+name=Puppet Labs Dependencies <%= os_release_major_version %> - $basearch
+baseurl=http://yum.puppetlabs.com/el/<%= os_release_major_version %>/dependencies/$basearch
+gpgkey=http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
+enabled=1
+gpgcheck=1
