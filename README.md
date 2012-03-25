@@ -35,15 +35,14 @@ Puppet Sandbox has been designed for and tested with Vagrant base boxes running:
 * CentOS 5.7
 * Ubuntu 10.04 - Lucid Lynx
 
-...although it may work just fine with other distributions/versions. By
-default, Puppet Sandbox will download and use a 64-bit CentOS 5.7 base box
-for you.
+...although it may work just fine with other distributions/versions.
 
 Usage
 =====
 
-Make sure you have a compatible Vagrant base box, and then you should be
-good to clone this repo and go:
+Make sure you have a compatible Vagrant base box (if you don't have one
+already, it will download a 64-bit CentOS 5.7 box for you), and then you
+should be good to clone this repo and go:
 
     $ vagrant box list
     centos57
