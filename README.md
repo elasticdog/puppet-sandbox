@@ -114,7 +114,7 @@ the agent daemon, you can easily force a manual run:
 License
 =======
 
-Puppet Sanbox is provided under the terms of [The MIT
+Puppet Sandbox is provided under the terms of [The MIT
 License](http://www.opensource.org/licenses/MIT).
 
 Copyright &copy; 2012, [Aaron Bull Schaefer](mailto:aaron@elasticdog.com).
