@@ -1,3 +1,4 @@
 * Support CentOS 6 and Arch Linux
 * Add an easy way to specify desired Puppet version
 * Make hosts file dynamic based on what is defined in Vagrantfile
+# Add puppet-lint onto the master
