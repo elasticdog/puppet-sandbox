@@ -1,7 +1,7 @@
 # == Class: helloworld
 #
 # This class is a bare bones example to ensure puppet master/clients are
-# talking to each other. 
+# talking to each other.
 #
 # === Parameters
 #

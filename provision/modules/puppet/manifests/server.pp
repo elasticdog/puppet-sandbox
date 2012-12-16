@@ -1,6 +1,6 @@
 # == Class: puppet::server
 #
-# This class installs and manages the Puppet server daemon. 
+# This class installs and manages the Puppet server daemon.
 #
 # === Parameters
 #
