@@ -47,6 +47,11 @@ class puppet::server(
     name   => $package_name,
   }
 
+  package { 'puppet-lint':
+    ensure   => latest,
+    provider => gem,
+  }
+
   file { 'puppet.conf':
     path    => '/etc/puppet/puppet.conf',
     owner   => 'puppet',
