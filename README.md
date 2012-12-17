@@ -32,7 +32,9 @@ To use Puppet Sandbox, you must have the following items installed and working:
 
 Puppet Sandbox has been designed for and tested with Vagrant base boxes running:
 
-* CentOS 5.7
+* CentOS 6.3
+* CentOS 5.8
+* Ubuntu 12.04 - Precise Pangolin
 * Ubuntu 10.04 - Lucid Lynx
 
 ...although it may work just fine with other distributions/versions.
@@ -41,13 +43,16 @@ Usage
 =====
 
 Make sure you have a compatible Vagrant base box (if you don't have one
-already, it will download a 64-bit CentOS 5.7 box for you), and then you
+already, it will download a 64-bit Ubuntu 12.04 box for you), and then you
 should be good to clone this repo and go:
 
     $ vagrant box list
-    centos57
+    precise64
     $ git clone git://github.com/elasticdog/puppet-sandbox.git
     $ cd puppet-sandbox/
+
+If you want a CentOS base box to work from, I highly recommend the boxes
+published by Jan Vansteenkiste: http://packages.vstone.eu/vagrant-boxes/
 
 Initial Startup
 ---------------
