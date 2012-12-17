@@ -16,11 +16,11 @@
 #
 class mirrors {
 
-  case $::operatingsystem {
-    'centos', 'fedora', 'redhat', 'scientific': {
+  case $::osfamily {
+    'redhat': {
       class { 'mirrors::yum': }
     }
-    'debian', 'ubuntu': {
+    'debian': {
       class { 'mirrors::apt': }
     }
     default: {
