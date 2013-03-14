@@ -3,6 +3,3 @@
 #
 
 import 'nodes'
-
-# global defaults
-File { backup => '.original' }
