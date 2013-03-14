@@ -28,6 +28,12 @@ class puppet(
   $ensure = $puppet::params::client_ensure
 ) inherits puppet::params {
 
+  if $osfamily == 'debian' and $ensure != 'latest' {
+    class { 'puppet::apt_pin':
+      version => $ensure
+    }
+  }
+
   package { 'puppet':
     ensure => $ensure,
   }
