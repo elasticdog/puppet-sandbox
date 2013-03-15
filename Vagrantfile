@@ -9,24 +9,26 @@ puppet_nodes = [
   {:hostname => 'client2', :ip => '172.16.32.12', :box => 'precise64'},
 ]
 
-Vagrant::Config.run do |config|
+Vagrant.configure("2") do |config|
   puppet_nodes.each do |node|
     config.vm.define node[:hostname] do |node_config|
       node_config.vm.box = node[:box]
       node_config.vm.box_url = 'http://files.vagrantup.com/' + node_config.vm.box + '.box'
-      node_config.vm.host_name = node[:hostname] + '.' + domain
-      node_config.vm.network :hostonly, node[:ip]
+      node_config.vm.hostname = node[:hostname] + '.' + domain
+      node_config.vm.network :private_network, ip: node[:ip]
 
       if node[:fwdhost]
-        node_config.vm.forward_port(node[:fwdguest], node[:fwdhost])
+        node_config.vm.network :forwarded_port, guest: node[:fwdguest], host: node[:fwdhost]
       end
 
       memory = node[:ram] ? node[:ram] : 256;
-      node_config.vm.customize [
-        'modifyvm', :id,
-        '--name', node[:hostname],
-        '--memory', memory.to_s
-      ]
+      node_config.vm.provider :virtualbox do |vb|
+        vb.customize [
+          'modifyvm', :id,
+          '--name', node[:hostname],
+          '--memory', memory.to_s
+        ]
+      end
 
       node_config.vm.provision :puppet do |puppet|
         puppet.manifests_path = 'provision/manifests'
