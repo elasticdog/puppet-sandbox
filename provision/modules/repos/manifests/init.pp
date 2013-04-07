@@ -1,7 +1,7 @@
-# == Class: mirrors
+# == Class: repos
 #
 # This class loads the relevant distribution-specific package repository
-# manifests and would be the place to configure any other custom mirrors you
+# manifests and would be the place to configure any other custom repos you
 # may want.
 #
 # === Parameters
@@ -12,16 +12,16 @@
 #
 # === Sample Usage
 #
-#   class { 'mirrors': }
+#   class { 'repos': }
 #
-class mirrors {
+class repos {
 
   case $::osfamily {
     'redhat': {
-      class { 'mirrors::yum': }
+      class { 'repos::yum': }
     }
     'debian': {
-      class { 'mirrors::apt': }
+      class { 'repos::apt': }
     }
     default: {
       fail("Module '${module_name}' is not currently supported by Puppet Sandbox on ${::operatingsystem}")

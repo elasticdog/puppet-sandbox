@@ -3,8 +3,9 @@
 #
 
 # use run stages for minor vagrant environment fixes
-stage { 'pre': before    => Stage['main'] }
-class { 'mirrors': stage => 'pre' }
+stage { 'pre': before => Stage['main'] }
+
+class { 'repos':   stage => 'pre' }
 class { 'vagrant': stage => 'pre' }
 
 class { 'puppet': }

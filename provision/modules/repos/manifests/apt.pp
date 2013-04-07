@@ -1,4 +1,4 @@
-# == Class: mirrors::apt
+# == Class: repos::apt
 #
 # This class installs the Puppet Labs APT repository.
 #
@@ -13,9 +13,9 @@
 #
 # === Sample Usage
 #
-#   class { 'mirrors::apt': }
+#   class { 'repos::apt': }
 #
-class mirrors::apt {
+class repos::apt {
 
   $puppetlabs_key = '4BD6EC30'
 
@@ -32,7 +32,7 @@ class mirrors::apt {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('mirrors/puppetlabs.list.erb'),
+    content => template('repos/puppetlabs.list.erb'),
   }
 
   exec { 'apt_update':

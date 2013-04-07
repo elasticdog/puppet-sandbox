@@ -1,4 +1,4 @@
-# == Class: mirrors::yum
+# == Class: repos::yum
 #
 # This class installs the Puppet Labs YUM repository.
 #
@@ -13,9 +13,9 @@
 #
 # === Sample Usage
 #
-#   class { 'mirrors::yum': }
+#   class { 'repos::yum': }
 #
-class mirrors::yum {
+class repos::yum {
 
   # can't rely on $lsbmajdistrelease being available on CentOS, and lsb's
   # dependencies are huge, so don't force installation of the package
@@ -27,7 +27,7 @@ class mirrors::yum {
     owner   => root,
     group   => root,
     mode    => '0644',
-    content => template('mirrors/puppetlabs.repo.erb'),
+    content => template('repos/puppetlabs.repo.erb'),
   }
 
   exec { 'yum_makecache':
