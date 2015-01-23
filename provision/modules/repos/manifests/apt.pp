@@ -22,7 +22,7 @@ class repos::apt {
   exec { 'apt_key_puppetlabs':
     path    => '/bin:/usr/bin',
     unless  => "/usr/bin/apt-key list | /bin/grep -q '${puppetlabs_key}'",
-    command => "apt-key adv --keyserver 'pgp.mit.edu' --recv-keys '${puppetlabs_key}'",
+    command => "apt-key adv --keyserver 'keyserver.ubuntu.com' --recv-keys '${puppetlabs_key}'",
     before  => File[ 'puppetlabs.list' ],
   }
 
