@@ -39,6 +39,7 @@ class repos::apt {
     command     => '/usr/bin/apt-get update',
     subscribe   => File[ 'puppetlabs.list' ],
     refreshonly => true,
+    timeout     => 0,
   }
 
 }
