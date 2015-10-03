@@ -106,7 +106,7 @@ Check Your Handiwork
 
 To log on to the virtual machines and see the result of your applied Puppet
 modules, just use standard [Vagrant Multi-VM
-Environment](http://vagrantup.com/docs/multivm.html) commands, and provide the
+Environment](https://docs.vagrantup.com/v2/multi-machine/index.html) commands, and provide the
 proper VM name (`master`, `client1`, or `client2`):
 
     $ vagrant ssh client1
