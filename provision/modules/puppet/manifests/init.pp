@@ -46,6 +46,14 @@ class puppet(
     before  => Service[ 'puppet' ],
   }
 
+  # templatedir is deprecated
+  exec { 'remove_templatedir_setting':
+    command => '/bin/sed -i /etc/puppet/puppet.conf -e "/templatedir=/d"',
+    onlyif  => '/bin/grep templatedir /etc/puppet/puppet.conf',
+    require => Package[ 'puppet' ],
+    before  => Service[ 'puppet' ],
+  }
+
   service { 'puppet':
     enable  => true,
     ensure  => running,
