@@ -1,2 +1,11 @@
-deb http://apt.puppetlabs.com <%= @lsbdistcodename %> main dependencies
-deb-src http://apt.puppetlabs.com <%= @lsbdistcodename %> main dependencies
+# Puppetlabs products
+deb http://apt.puppetlabs.com <%= @lsbdistcodename %> PC1
+deb-src http://apt.puppetlabs.com <%= @lsbdistcodename %> PC1
+
+# Puppetlabs dependencies
+deb http://apt.puppetlabs.com <%= @lsbdistcodename %> dependencies
+deb-src http://apt.puppetlabs.com <%= @lsbdistcodename %> dependencies
+
+# Puppetlabs devel (uncomment to activate)
+# deb http://apt.puppetlabs.com <%= @lsbdistcodename %> devel
+# deb-src http://apt.puppetlabs.com <%= @lsbdistcodename %> devel
